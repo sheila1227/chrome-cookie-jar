@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Cookie Jar",
+    "description": "The name of the extension."
+  },
+  "appDescription": {
+    "message": "Get cookies faster",
+    "description": "The description of the extension."
+  },
+  "btnTooltip": {
+    "message": "Cookie Jar",
+    "description": "Tooltip for the button."
+  }
+}

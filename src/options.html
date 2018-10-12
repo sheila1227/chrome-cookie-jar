@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="styles/options.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Options & Settings</title>
+</head>
+<body id="wrap">
+  <h1>请在此处配置你需要快速获取的cookie信息</h1>
+  <div id="cookie-items"></div>
+  <footer class="action-footer"><button id="add-new-btn">添 加</button></footer>
+  <div class="modal micromodal-slide" id="add-cookie-modal" aria-hidden="true">
+      <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+          <header class="modal__header">
+            <h2 class="modal__title" id="modal-1-title">
+                添加 cookie 配置
+            </h2>
+            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+          </header>
+          <main class="modal__content" id="modal-1-content">
+            <div class="cookie-item-add-row required">
+              <label>名称</label>
+              <input type="text" id="new-item-name" placeholder="cookie name，必填"/>
+            </div>
+            <div class="cookie-item-add-row">
+              <label>域名</label>
+              <input type="text" id="new-item-domain" placeholder="限定cookie domain，非必填"/>
+            </div>
+            <div class="cookie-item-add-row">
+              <label>描述</label>
+              <input type="text" id="new-item-desc" placeholder="cookie 描述，非必填" />
+            </div>
+          </main>
+          <footer class="modal__footer">
+            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">取消</button>
+            <button class="modal__btn modal__btn-primary" id="save-new-btn">保存</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+  <script src="scripts/options.js"></script>
+</body>
+</html>

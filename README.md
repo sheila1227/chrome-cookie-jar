@@ -1,2 +1,2 @@
-# chrome-cookie-jar
-一个可以快速获得cookie值的chrome插件
+### 介绍
+一个可以快速获得cookie值的插件。
