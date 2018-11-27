@@ -2,6 +2,7 @@ import ext from "./utils/ext";
 import storage from "./utils/storage";
 import MicroModal from './lib/micromodal';
 import { COOKIE_STORAGE_KEY } from './constants';
+import { COOKIE_JAR_DEFAULT_USER_SETTING } from './defaults';
 
 class CookieSetting {
   constructor() {
@@ -41,8 +42,16 @@ class CookieSetting {
 
   fetchUserSetting() {
     storage.get(COOKIE_STORAGE_KEY, (resp) => {
-      this.cookieSettings = resp[COOKIE_STORAGE_KEY] || [];
-      this.renderCookieItems();
+      const userOptions = resp[COOKIE_STORAGE_KEY];
+      if (userOptions === undefined) {
+        this.cookieSettings = COOKIE_JAR_DEFAULT_USER_SETTING || [];
+        storage.set({ [COOKIE_STORAGE_KEY]: this.cookieSettings }, () => {
+          this.renderCookieItems();
+        });
+      } else {
+        this.cookieSettings = userOptions || [];
+        this.renderCookieItems();
+      }
     });
   }
 
@@ -87,6 +96,10 @@ class CookieSetting {
     const domain = this.newItemDomainInput.value.trim();
     if (!name) {
       alert('必须填写 cookie 名称！');
+      return;
+    }
+    if (!domain) {
+      alert('必须填写 domain！');
       return;
     }
     if (this.mode === 'new') {

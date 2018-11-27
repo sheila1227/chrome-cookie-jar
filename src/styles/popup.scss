@@ -67,9 +67,16 @@ body {
   }
 }
 
-.domain {
+.domain, .desc {
   padding-left: 50px;
-  color: #666;
   font-size: 12px;
   margin-bottom: 10px;
+}
+
+.domain {
+  color: #666;
+}
+
+.desc {
+  color: #07C;
 }

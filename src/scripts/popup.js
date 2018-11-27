@@ -1,6 +1,7 @@
 import ext from "./utils/ext";
 import storage from "./utils/storage";
 import { COOKIE_STORAGE_KEY } from './constants';
+import { COOKIE_JAR_DEFAULT_USER_SETTING } from './defaults';
 import ClipboardJS from './lib/clipboard';
 import tippy from './lib/tippy';
 
@@ -22,9 +23,16 @@ class CookieView {
 
   fetchUserSetting() {
     storage.get(COOKIE_STORAGE_KEY, (resp) => {
-      const cookiesToFetch = resp[COOKIE_STORAGE_KEY] || [];
-      this.cookiesToFetch = cookiesToFetch;
-      this.fetchCookies();
+      const userOptions = resp[COOKIE_STORAGE_KEY];
+      if (userOptions === undefined) {
+        this.cookiesToFetch = COOKIE_JAR_DEFAULT_USER_SETTING || [];
+        storage.set({ [COOKIE_STORAGE_KEY]: this.cookiesToFetch }, () => {
+          this.fetchCookies();
+        });
+      } else {
+        this.cookiesToFetch = userOptions || [];
+        this.fetchCookies();
+      }
     });
   }
 
@@ -68,6 +76,8 @@ class CookieView {
 
   getCookieItemTemplate(cookieRawData) {
     const { name, value, domain } = cookieRawData;
+    const userSettingItem = this.cookiesToFetch.find(settingItem => settingItem.name === name && settingItem.domain === domain);
+    const { desc } = userSettingItem || {};
     return (`
       <li class="cookie-item list-item">
         <label>${name}</label>
@@ -83,6 +93,7 @@ class CookieView {
           复制
         </span>
       </li>
+      ${desc ? `<div class="desc">${desc}</div>` : ""}
       ${domain ? `<div class="domain">来自：${domain}</div>` : ""}
     `);
   }
